@@ -1,0 +1,5 @@
+# [A survey on vision transformer](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9716741)
+
+- In most cases, ViT is pre-trained on large datasets, and then fine-tuned for downstream tasks with smaller data.
+
+ViT yields modest results when trained on **mid-sized** datasets such as ImageNet, achieving accuracies of a few percentage points below ResNets of comparable size. Because transformers lack some inductive biases inherent to CNNs–such as translation equivariance and locality–they do not generalize well when __trained on insufficient amounts of data__. However, the authors found that training the models on large datasets (14 million to 300 million images) surpassed inductive bias. When pre-trained at sufficient scale, transformers achieve excellent results on tasks with fewer datapoints. For example, when pre-trained on the JFT-300M dataset, ViT approached or even exceeded state of the art performance on multiple image recognition benchmarks. Specifically, it reached an accuracy of 88.36% on ImageNet, and 77.16% on the VTAB suite of 19 tasks 
