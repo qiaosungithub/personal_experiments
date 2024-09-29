@@ -72,8 +72,8 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
             # print(images.shape)
             # assert False
             sigma_indices = torch.randint(0, n_sigma, (images.size(0),), device=device)
-            sigma_batch_no_extend = sigmas_t[sigma_indices]
-            sigma_batch = sigma_batch_no_extend.view(-1, 1, 1, 1)
+            # sigma_batch_no_extend = sigmas_t[sigma_indices]
+            sigma_batch = sigmas_t[sigma_indices].view(-1, 1, 1, 1)
 
             # add noise to images
             images = images.to(device)
@@ -83,7 +83,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
             # assert False
 
             optimizer.zero_grad()
-            outputs = model(images_noise, sigma_batch_no_extend)
+            outputs = model(images_noise, sigma_indices)
             outputs = outputs * sigma_batch
             target = - noise / sigma_batch
             loss = criterion(outputs, target)
@@ -134,13 +134,14 @@ def langevin(score_model, x, sigmas, eps, T, save=False, epochs=None, clamp=True
     bs = x.shape[0]
     all_samples = []
     
-    for sigma in sigmas:
+    for i in range(len(sigmas)):
+        sigma = sigmas[i]
         alpha = eps * (sigma ** 2) / (sigmas[-1] ** 2)
         for t in range(T):
             noise = torch.randn_like(x).to(device)
-            sigma_t = sigma * torch.ones((bs,), device=device)
-            assert sigma_t.shape == torch.Size([bs,])
-            x = x + alpha / 2 * score_model(x, sigma_t) + np.sqrt(alpha) * noise
+            indices = i * torch.ones(bs, dtype=torch.long, device=device)
+            assert indices.shape == torch.Size([bs,])
+            x = x + alpha / 2 * score_model(x, indices) + np.sqrt(alpha) * noise
             if clamp:
                 x = torch.clamp(x, 0, 1)
         if save:

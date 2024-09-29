@@ -49,74 +49,73 @@ class ConditionalInstanceNorm2dPlus(nn.Module):
         return out
 
 class UNet(nn.Module):
-    def __init__(self, activation=F.relu):
+    def __init__(self, L, activation=F.relu):
         super(UNet, self).__init__()
 
         # the input shape is 1x28x28
-        self.noise_fc1 = nn.Linear(1, 28*28)
-        self.noise_fc2 = nn.Linear(1, 14*14)
-        self.noise_fc3 = nn.Linear(1, 7*7)
-        # then up
-        self.noise_up_fc1 = nn.Linear(1, 14*14)
-        self.noise_up_fc2 = nn.Linear(1, 28*28)
-        self.noise_up_fc3 = nn.Linear(1, 28*28)
 
-        self.conv1 = conv3x3(2, 8)
-        self.conv2 = conv3x3(9, 20)
-        self.conv3 = conv3x3(21, 40)
+        self.conv1 = conv3x3(1, 16)
+        self.conv2 = conv3x3(16, 64)
+        self.conv3 = conv3x3(64, 256)
         # then up
-        self.conv_up1 = conv3x3(41, 16)
-        self.conv_up2 = conv3x3(17, 8)
-        self.conv_up3 = conv3x3(9, 1)
+        self.conv_up1 = conv3x3(128, 32)
+        self.conv_up2 = conv3x3(32, 8)
+        self.conv_up3 = conv3x3(8, 1)
 
-        self.up1 = nn.ConvTranspose2d(40, 20, 2, stride=2)
-        self.up2 = nn.ConvTranspose2d(16, 8, 2, stride=2)
+        self.up1 = nn.ConvTranspose2d(256, 64, 2, stride=2)
+        self.up2 = nn.ConvTranspose2d(32, 16, 2, stride=2)
+
+        self.CIN1 = ConditionalInstanceNorm2dPlus(1, L)
+        self.CIN2 = ConditionalInstanceNorm2dPlus(16, L)
+        self.CIN3 = ConditionalInstanceNorm2dPlus(16, L)
+        self.CIN4 = ConditionalInstanceNorm2dPlus(64, L)
+        self.CIN5 = ConditionalInstanceNorm2dPlus(64, L)
+        self.CIN6 = ConditionalInstanceNorm2dPlus(256, L)
+        self.CIN7 = ConditionalInstanceNorm2dPlus(128, L)
+        self.CIN8 = ConditionalInstanceNorm2dPlus(32, L)
+        self.CIN9 = ConditionalInstanceNorm2dPlus(32, L)
+        self.CIN10 = ConditionalInstanceNorm2dPlus(8, L)
 
         self.pool = nn.AvgPool2d(2, stride=2)
         self.activation = activation
 
         # we may use layer norm
         
-    def forward(self, x, sigma):
+    def forward(self, x, indices):
         bs = x.shape[0]
-        sigma = sigma.unsqueeze(1)
+        # sigma = sigma.unsqueeze(1)
         assert x.shape == torch.Size([bs, 1, 28, 28])
-        assert sigma.shape == torch.Size([bs, 1])
+        assert indices.shape == torch.Size([bs, ])
 
-        noise1 = self.noise_fc1(sigma).view(bs, 1, 28, 28)
-        x = torch.cat([x, noise1], dim=1)
-        # x = F.relu(self.conv1(x)) # 8x28x28
+        x = self.CIN1(x, indices)
         x = self.activation(self.conv1(x))
         res1 = x
 
+        x = self.CIN2(x, indices)
         x = self.pool(x)
-        noise2 = self.noise_fc2(sigma).view(bs, 1, 14, 14)
-        x = torch.cat([x, noise2], dim=1)
-        # x = F.relu(self.conv2(x)) # 20x14x14
+        x = self.CIN3(x, indices)
         x = self.activation(self.conv2(x))
         res2 = x
 
+        x = self.CIN4(x, indices)
         x = self.pool(x)
-        noise3 = self.noise_fc3(sigma).view(bs, 1, 7, 7)
-        x = torch.cat([x, noise3], dim=1)
-        # x = F.relu(self.conv3(x)) # 40x7x7
+        x = self.CIN5(x, indices)
         x = self.activation(self.conv3(x))
 
         # then up
+        x = self.CIN6(x, indices)
         x = self.up1(x)
-        noise_up1 = self.noise_up_fc1(sigma).view(bs, 1, 14, 14)
-        x = torch.cat([x, res2, noise_up1], dim=1)
-        # x = F.relu(self.conv_up1(x)) # 16x14x14
+        x = torch.cat((x, res2), dim=1)
+        x = self.CIN7(x, indices)
         x = self.activation(self.conv_up1(x))
 
+        x = self.CIN8(x, indices)
         x = self.up2(x)
-        noise_up2 = self.noise_up_fc2(sigma).view(bs, 1, 28, 28)
-        x = torch.cat([x, res1, noise_up2], dim=1)
-        # x = F.relu(self.conv_up2(x)) # 8x28x28
+        x = torch.cat((x, res1), dim=1)
+        x = self.CIN9(x, indices)
         x = self.activation(self.conv_up2(x))
 
-        noise_up3 = self.noise_up_fc3(sigma).view(bs, 1, 28, 28)
-        x = torch.cat([x, noise_up3], dim=1)
+        x = self.CIN10(x, indices)
         x = self.conv_up3(x)
 
         assert x.size() == torch.Size([bs, 1, 28, 28])
