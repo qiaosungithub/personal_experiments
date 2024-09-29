@@ -10,9 +10,14 @@ def conv3x3(in_c, out_c, stride=1):
     return nn.Conv2d(in_c, out_c, kernel_size=3, stride=stride,
                      padding=1, bias=True)
 
+class Swish(nn.Module):
+    def __init__(self):
+        super(Swish, self).__init__()
+    def forward(self, x):
+        return x * torch.sigmoid(x)
 
 class UNet(nn.Module):
-    def __init__(self):
+    def __init__(self, activation=F.relu):
         super(UNet, self).__init__()
 
         # the input shape is 1x28x28
@@ -35,7 +40,8 @@ class UNet(nn.Module):
         self.up1 = nn.ConvTranspose2d(40, 20, 2, stride=2)
         self.up2 = nn.ConvTranspose2d(16, 8, 2, stride=2)
 
-        self.pool = nn.MaxPool2d(2, 2)
+        self.pool = nn.AvgPool2d(2, stride=2)
+        self.activation = activation
 
         # we may use layer norm
         
@@ -47,30 +53,35 @@ class UNet(nn.Module):
 
         noise1 = self.noise_fc1(sigma).view(bs, 1, 28, 28)
         x = torch.cat([x, noise1], dim=1)
-        x = F.relu(self.conv1(x)) # 8x28x28
+        # x = F.relu(self.conv1(x)) # 8x28x28
+        x = self.activation(self.conv1(x))
         res1 = x
 
         x = self.pool(x)
         noise2 = self.noise_fc2(sigma).view(bs, 1, 14, 14)
         x = torch.cat([x, noise2], dim=1)
-        x = F.relu(self.conv2(x)) # 20x14x14
+        # x = F.relu(self.conv2(x)) # 20x14x14
+        x = self.activation(self.conv2(x))
         res2 = x
 
         x = self.pool(x)
         noise3 = self.noise_fc3(sigma).view(bs, 1, 7, 7)
         x = torch.cat([x, noise3], dim=1)
-        x = F.relu(self.conv3(x)) # 40x7x7
+        # x = F.relu(self.conv3(x)) # 40x7x7
+        x = self.activation(self.conv3(x))
 
         # then up
         x = self.up1(x)
         noise_up1 = self.noise_up_fc1(sigma).view(bs, 1, 14, 14)
         x = torch.cat([x, res2, noise_up1], dim=1)
-        x = F.relu(self.conv_up1(x)) # 16x14x14
+        # x = F.relu(self.conv_up1(x)) # 16x14x14
+        x = self.activation(self.conv_up1(x))
 
         x = self.up2(x)
         noise_up2 = self.noise_up_fc2(sigma).view(bs, 1, 28, 28)
         x = torch.cat([x, res1, noise_up2], dim=1)
-        x = F.relu(self.conv_up2(x)) # 8x28x28
+        # x = F.relu(self.conv_up2(x)) # 8x28x28
+        x = self.activation(self.conv_up2(x))
 
         noise_up3 = self.noise_up_fc3(sigma).view(bs, 1, 28, 28)
         x = torch.cat([x, noise_up3], dim=1)

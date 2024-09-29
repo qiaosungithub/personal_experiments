@@ -40,7 +40,7 @@ class UNet(nn.Module):
         self.up1 = nn.ConvTranspose2d(40, 20, 2, stride=2)
         self.up2 = nn.ConvTranspose2d(16, 8, 2, stride=2)
 
-        self.pool = nn.MaxPool2d(2, 2)
+        self.pool = nn.AvgPool2d(2, stride=2)
         self.activation = activation
 
         # we may use layer norm

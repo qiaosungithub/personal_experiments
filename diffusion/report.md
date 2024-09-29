@@ -21,7 +21,7 @@
 
 - 核心思想：__perturb__ the data with random Gaussian noise of various magnitudes; annealed version of Langevin dynamics
 
-模型具体细节: 使用了 dilated UNet; conditioned instance normalization
+模型具体细节: 使用了 dilated UNet; modified conditioned instance normalization (加在每个 conv 和 pool 之前)
 
 # [improved skills for NCSN](https://arxiv.org/abs/2006.09011)
 
