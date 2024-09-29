@@ -117,7 +117,7 @@ def _calculate_frechet_distance(mu1, sigma1, mu2, sigma2, eps=1e-6):
 
 # prepare model
 model = MnistInceptionV3()
-model.load_state_dict(torch.load("MnistInceptionV3.pth"))
+model.load_state_dict(torch.load("NCSN/MnistInceptionV3.pth"))
 
 model.model.fc = nn.Identity()
 model.eval()
@@ -126,9 +126,9 @@ device = torch.device('cuda') if torch.cuda.is_available() else torch.device(
     'cpu')
 model = model.to(device)
 
-fids = np.zeros((args.repeat, 10), dtype=np.float32)
+# fids = np.zeros((1, 10), dtype=np.float32)
 
-for repeat in range(args.repeat):
+for repeat in range(1):
     with torch.no_grad():
         # for number in tqdm(range(10)):
             # from image folder
@@ -171,6 +171,6 @@ for repeat in range(args.repeat):
             mu2, sigma2 = act2.mean(0), np.cov(act2, rowvar=False)
             fid = _calculate_frechet_distance(mu1, sigma1, mu2, sigma2)
 
-            fids[repeat, number] = fid
+            # fids[repeat, number] = fid
 
-print(f"FID score for 10 classes: {fids.mean(0)}")
+print(f"FID score: {fid}")

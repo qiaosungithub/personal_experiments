@@ -27,7 +27,7 @@ def save_image(images, filename):
     grid = torchvision.utils.make_grid(images, nrow=8, padding=2, pad_value=1)
     torchvision.utils.save_image(grid, filename)
 
-def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas, eps, T, outdir):
+def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas, eps, T, outdir, eval_freq=5, sample_dir='./NCSN/samples/'):
     # Set random seed for reproducibility
     seed = 42
     np.random.seed(seed)
@@ -106,12 +106,13 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
             best_matching_loss = train_loss
         torch.save(model.state_dict(), "NCSN/models/{i}.pth".format(i=epoch))
 
-        # generate samples
-        model.eval()
-        with torch.no_grad():
-            x = torch.rand(64, 1, 28, 28).to(device)
-            samples = langevin(model, x, sigmas, eps, T, clamp=False)
-            save_image(samples, "NCSN/samples/{i}.png".format(i=epoch))
+        if epoch % eval_freq == 0:
+            # generate samples
+            model.eval()
+            with torch.no_grad():
+                x = torch.rand(64, 1, 28, 28).to(device)
+                samples = langevin(model, x, sigmas, eps, T, clamp=False)
+                save_image(samples, sample_dir + "{i}.png".format(i=epoch))
 
 
 @torch.no_grad()

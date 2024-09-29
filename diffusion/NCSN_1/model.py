@@ -87,19 +87,19 @@ class UNet(nn.Module):
         assert x.shape == torch.Size([bs, 1, 28, 28])
         assert indices.shape == torch.Size([bs, ])
 
-        x = self.CIN1(x, indices)
+        # x = self.CIN1(x, indices)
         x = self.activation(self.conv1(x))
         res1 = x
 
         x = self.CIN2(x, indices)
         x = self.pool(x)
-        x = self.CIN3(x, indices)
+        # x = self.CIN3(x, indices)
         x = self.activation(self.conv2(x))
         res2 = x
 
         x = self.CIN4(x, indices)
         x = self.pool(x)
-        x = self.CIN5(x, indices)
+        # x = self.CIN5(x, indices)
         x = self.activation(self.conv3(x))
 
         # then up
@@ -115,7 +115,7 @@ class UNet(nn.Module):
         x = self.CIN9(x, indices)
         x = self.activation(self.conv_up2(x))
 
-        x = self.CIN10(x, indices)
+        # x = self.CIN10(x, indices)
         x = self.conv_up3(x)
 
         assert x.size() == torch.Size([bs, 1, 28, 28])
