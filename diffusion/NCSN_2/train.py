@@ -55,7 +55,6 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
 
     best_matching_loss = float('inf')
     train_losses = []
-    # sigmas = cal_noise_level(init_sigma, final_sigma, n_sigma)
     n_sigma = len(sigmas)
     sigmas_t = torch.tensor(sigmas, device=device)
 
@@ -64,23 +63,14 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
         running_loss = 0.0
         progress_bar = tqdm(train_loader, desc=f'Epoch {epoch+1}/{epochs}', leave=False)
         for b in progress_bar:
-            # print(images)
-            # print(images[0])
-            # print(images[1])
-            # assert False
             images, _ = b
-            # print(images.shape)
-            # assert False
             sigma_indices = torch.randint(0, n_sigma, (images.size(0),), device=device)
-            # sigma_batch_no_extend = sigmas_t[sigma_indices]
             sigma_batch = sigmas_t[sigma_indices].view(-1, 1, 1, 1)
 
             # add noise to images
             images = images.to(device)
             noise = torch.randn_like(images) * sigma_batch
             images_noise = images + noise
-            # print(images_noise.shape)
-            # assert False
 
             optimizer.zero_grad()
             outputs = model(images_noise, sigma_indices)
