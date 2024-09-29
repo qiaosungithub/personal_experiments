@@ -10,6 +10,11 @@ def conv3x3(in_c, out_c, stride=1):
     return nn.Conv2d(in_c, out_c, kernel_size=3, stride=stride,
                      padding=1, bias=True)
 
+class Swish(nn.Module):
+    def __init__(self):
+        super(Swish, self).__init__()
+    def forward(self, x):
+        return x * torch.sigmoid(x)
 
 class UNet(nn.Module):
     def __init__(self, activation=F.relu):

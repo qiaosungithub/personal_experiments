@@ -21,6 +21,8 @@
 
 - 核心思想：__perturb__ the data with random Gaussian noise of various magnitudes; annealed version of Langevin dynamics
 
+模型具体细节: 使用了 dilated UNet; conditioned instance normalization
+
 # [improved skills for NCSN](https://arxiv.org/abs/2006.09011)
 
 1. 在 langevin 最后额外添加一步梯度但不加噪声, 不影响观感但是可以提升 FID
