@@ -146,18 +146,21 @@ def langevin(score_model, x, sigmas, eps, T, save=False, epochs=None, clamp=True
             if clamp:
                 x = torch.clamp(x, 0, 1)
         if save:
-            all_samples.append(x.clone().cpu())
+            if i % (len(sigmas) // 10) == (len(sigmas) - 1) % (len(sigmas) // 10):
+                all_samples.append(x.clone().cpu())
 
     if save:
         assert x.shape[0] == 10
-        assert len(sigmas) == 10
+        # assert len(sigmas) == 10
         assert epochs is not None
         save_dir = './NCSN/denoising_process/'
         filename = '{:>03d}.png'.format(epochs)
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         # concatenate all samples
+        all_samples = all_samples[-10:]
         all_samples = torch.cat(all_samples, dim=0)
+        assert all_samples.shape == torch.Size([100, 1, 28, 28])
         # save the image
         grid = torchvision.utils.make_grid(all_samples, nrow=10, padding=2, pad_value=1)
         torchvision.utils.save_image(grid, os.path.join(save_dir, filename))
