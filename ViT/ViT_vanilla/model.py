@@ -57,7 +57,7 @@ class tranformer_layer(nn.Module):
         attn = torch.einsum('bqnc,bknc->bnqk', q, k) / sqrt(self.head_dim) # c=head_dim
         attn = F.softmax(attn, dim=-1)
         attn_val = torch.einsum('bnqk,bknc->bqnc', attn, v)
-        attn_val = attn_val.reshape(attn_val.shape[0], attn_val.shape[1], self.embed_dim)
+        attn_val = attn_val.reshape(attn_val.shape[0], attn_val.shape[1], self.attn_dim)
 
         x = res + self.dropout(self.fc(attn_val))
         res = x
