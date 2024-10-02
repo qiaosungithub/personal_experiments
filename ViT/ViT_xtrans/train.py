@@ -36,6 +36,8 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
     for epoch in range(epochs):
         model.train()
         running_loss = 0.0
+        total_train = 0
+        correct_train = 0
         progress_bar = tqdm(train_loader, desc=f'Epoch {epoch+1}/{epochs}', leave=False)
         for images, labels in progress_bar:
             images, labels = images.to(device), labels.to(device)
