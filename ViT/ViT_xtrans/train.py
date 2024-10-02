@@ -10,13 +10,20 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-def train(epochs, model, optimizer, criterion, train_loader, val_loader):
+def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir):
     # Set random seed for reproducibility
     seed = 42
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
+
+    with open(outdir, 'a') as f:
+        f.write("the model")
+        f.write(str(model) + '\n')
+        f.write("the transformer")
+        f.write(str(model.transformer) + '\n')
+        f.write(str(optimizer) + '\n')
 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model.to(device)
@@ -66,9 +73,12 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader):
 
         print(f'Epoch [{epoch+1}/{epochs}], Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%')
 
+        with open(outdir, 'a') as f:
+            f.write("Epoch {i}: train loss {loss}, val loss {vloss}, val accuracy {vacc}\n".format(i=epoch, loss=train_loss, vloss=val_loss, vacc=val_accuracy))
+
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), 'best_model.pth')
 
-    return train_losses, val_losses
+    # return train_losses, val_losses
 
