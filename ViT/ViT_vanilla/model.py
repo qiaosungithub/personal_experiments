@@ -26,6 +26,7 @@ class tranformer_layer(nn.Module):
         self.embed_dim = embed_dim
         self.n_heads = n_heads
         self.head_dim = embed_dim // n_heads
+        self.attn_dim = attn_dim
         self.QKV = nn.Linear(embed_dim, attn_dim * 3, bias=False)
         self.fc = nn.Linear(attn_dim, embed_dim, bias=False)
         if mlp_dim is None:
@@ -46,9 +47,9 @@ class tranformer_layer(nn.Module):
         x = self.norm1(x)
         qkv = self.QKV(x)
         q, k, v = qkv.chunk(3, dim=-1)
-        assert q.shape == torch.Size((x.shape[0], x.shape[1], self.embed_dim))
-        assert k.shape == torch.Size((x.shape[0], x.shape[1], self.embed_dim))
-        assert v.shape == torch.Size((x.shape[0], x.shape[1], self.embed_dim))
+        assert q.shape == torch.Size((x.shape[0], x.shape[1], self.attn_dim))
+        assert k.shape == torch.Size((x.shape[0], x.shape[1], self.attn_dim))
+        assert v.shape == torch.Size((x.shape[0], x.shape[1], self.attn_dim))
         q = q.reshape(q.shape[0], q.shape[1], self.n_heads, self.head_dim)
         k = k.reshape(k.shape[0], k.shape[1], self.n_heads, self.head_dim)
         v = v.reshape(v.shape[0], v.shape[1], self.n_heads, self.head_dim)
