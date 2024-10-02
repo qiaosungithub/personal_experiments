@@ -31,6 +31,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
     best_val_loss = float('inf')
     train_losses = []
     val_losses = []
+    train_accuracies = []
 
     for epoch in range(epochs):
         model.train()
@@ -46,10 +47,15 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
             optimizer.step()
 
             running_loss += loss.item()
+            _, predicted = torch.max(outputs.data, 1)
+            total_train += labels.size(0)
+            correct_train += (predicted == labels).sum().item()
             progress_bar.set_postfix({'Train Loss': running_loss / (progress_bar.n + 1)})
 
         train_loss = running_loss / len(train_loader)
         train_losses.append(train_loss)
+        train_accuracy = 100 * correct_train / total_train
+        train_accuracies.append(train_accuracy)
 
         model.eval()
         val_loss = 0.0
@@ -71,10 +77,10 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         val_losses.append(val_loss)
         val_accuracy = 100 * correct / total
 
-        print(f'Epoch [{epoch+1}/{epochs}], Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%')
-
+        print(f'Epoch {epoch+1}/{epochs}, Train Loss: {train_loss:.4f}, Train Accuracy: {train_accuracy:.2f}%, Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%')
+        
         with open(outdir, 'a') as f:
-            f.write("Epoch {i}: train loss {loss}, val loss {vloss}, val accuracy {vacc}\n".format(i=epoch, loss=train_loss, vloss=val_loss, vacc=val_accuracy))
+            f.write("Epoch {i}: train loss {loss}, val loss {vloss}, val accuracy {vacc}, train acc {trainacc}\n".format(i=epoch, loss=train_loss, vloss=val_loss, vacc=val_accuracy, trainacc=train_accuracy))
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
