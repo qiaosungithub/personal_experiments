@@ -25,7 +25,7 @@ class tranformer_layer(nn.Module):
         super(tranformer_layer, self).__init__()
         self.embed_dim = embed_dim
         self.n_heads = n_heads
-        self.head_dim = embed_dim // n_heads
+        self.head_dim = attn_dim // n_heads
         self.attn_dim = attn_dim
         self.QKV = nn.Linear(embed_dim, attn_dim * 3, bias=False)
         self.fc = nn.Linear(attn_dim, embed_dim, bias=False)
