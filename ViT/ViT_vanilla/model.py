@@ -21,21 +21,23 @@ class GELU(nn.Module):
         return 0.5 * x * (1 + torch.tanh(sqrt(2 / pi) * (x + 0.044715 * torch.pow(x, 3))))
 
 class tranformer_layer(nn.Module):
-    def __init__(self, embed_dim, n_heads, mlp_dim, dropout=0.0):
+    def __init__(self, embed_dim, n_heads, attn_dim, mlp_dim = None, dropout=0.0):
         super(tranformer_layer, self).__init__()
         self.embed_dim = embed_dim
         self.n_heads = n_heads
         self.head_dim = embed_dim // n_heads
-        self.QKV = nn.Linear(embed_dim, embed_dim * 3)
-        self.fc = nn.Linear(embed_dim, embed_dim)
+        self.QKV = nn.Linear(embed_dim, attn_dim * 3, bias=False)
+        self.fc = nn.Linear(attn_dim, embed_dim, bias=False)
+        if mlp_dim is None:
+            mlp_dim = embed_dim * 4
         self.mlp = nn.Sequential(
             nn.Linear(embed_dim, mlp_dim),
             GELU(),
             nn.Dropout(dropout),
             nn.Linear(mlp_dim, embed_dim)
         )
-        self.norm1 = nn.LayerNorm(embed_dim)
-        self.norm2 = nn.LayerNorm(embed_dim)
+        self.norm1 = nn.LayerNorm(embed_dim, elementwise_affine=False)
+        self.norm2 = nn.LayerNorm(embed_dim, elementwise_affine=False)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
@@ -63,7 +65,7 @@ class tranformer_layer(nn.Module):
         return x
 
 class ViT(nn.Module):
-    def __init__(self, image_size, patch_size, num_classes, embed_dim, n_layers, heads, attn_mlp_dim, mlp_dim, pool = 'cls', channels = 3, dropout=0.0):
+    def __init__(self, image_size, patch_size, num_classes, embed_dim, n_layers, heads, attn_dim, mlp_dim=None, pool = 'cls', channels = 3, dropout=0.0):
         super(ViT, self).__init__()
         assert image_size % patch_size == 0, 'Image dimensions must be divisible by the patch size.'
         num_patches = (image_size // patch_size) ** 2
@@ -80,12 +82,12 @@ class ViT(nn.Module):
         self.positional_embedding = nn.Parameter(torch.randn(1, num_patches + 1, embed_dim))
         self.dropout = nn.Dropout(0.1)
         self.cls_token = nn.Parameter(torch.randn(1, 1, embed_dim))
-        # self.transformer = nn.Sequential(*[tranformer_layer(embed_dim, heads, attn_mlp_dim, dropout=dropout) for _ in range(n_layers)])
-        self.transformer = AttentionLayers(
-            dim=embed_dim,
-            heads=heads,
-            depth=n_layers,
-        )
+        self.transformer = nn.Sequential(*[tranformer_layer(embed_dim, heads, attn_dim, mlp_dim, dropout=dropout) for _ in range(n_layers)])
+        # self.transformer = AttentionLayers(
+        #     dim=embed_dim,
+        #     heads=heads,
+        #     depth=n_layers,
+        # )
         
         self.pool = pool
         self.LN = nn.LayerNorm(embed_dim)
