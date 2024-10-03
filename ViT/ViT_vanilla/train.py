@@ -9,6 +9,7 @@ from tqdm import tqdm
 import numpy as np
 import torch
 import torch.nn.functional as F
+import os
 
 def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir):
     # Set random seed for reproducibility
@@ -25,7 +26,14 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         f.write(str(model.transformer) + '\n')
         f.write(str(optimizer) + '\n')
 
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    # # 使用 DataParallel 将模型并行化
+    # if torch.cuda.device_count() > 1:
+    #     print(f"Using {torch.cuda.device_count()} GPUs")
+    #     model = torch.nn.DataParallel(model, device_ids=[0, 1])
+    
     model.to(device)
 
     best_val_loss = float('inf')
