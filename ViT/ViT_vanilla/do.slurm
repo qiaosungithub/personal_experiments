@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -J YOUR_JOB_NAME
-#SBATCH -o YOUR_JOB_NAME_%j.out
-#SBATCH -e YOUR_JOB_NAME_%j.err
+#SBATCH -J SLURM_TEST
+#SBATCH -o SLURM_TEST_%j.out
+#SBATCH -e SLURM_TEST_%j.err
 
 #SBATCH --gres=gpu:4
 #SBATCH --gpus-per-node=4
@@ -43,8 +43,8 @@ echo " Run started at:- "
 date
 
 ## Write your code here
-echo Test
-python train.py
+echo RUNN
+python ipynb.py
 ## End of your code
 
 echo "Run completed at:- "
