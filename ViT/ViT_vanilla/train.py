@@ -1,8 +1,8 @@
 try:
-    from ViT.utils import *
+    # from ViT.utils import save_model
     from ViT.model import *
 except:
-    from utils import *
+    # from utils import save_model
     from model import *
 from tqdm import tqdm
 
@@ -31,9 +31,9 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     # # 使用 DataParallel 将模型并行化
-    if torch.cuda.device_count() > 1:
-        print(f"Using {torch.cuda.device_count()} GPUs")
-        model = torch.nn.DataParallel(model)
+    # if torch.cuda.device_count() > 1:
+    #     print(f"Using {torch.cuda.device_count()} GPUs")
+    #     model = torch.nn.DataParallel(model)
     
     model.to(device)
 
@@ -49,8 +49,8 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         correct_train = 0
         progress_bar = tqdm(train_loader, desc=f'Epoch {epoch+1}/{epochs}', leave=False)
         for images, labels in progress_bar:
-            # images, labels = images.to(device), labels.to(device)
-            labels = labels.to(device)
+            images, labels = images.to(device), labels.to(device)
+            # labels = labels.to(device)
             optimizer.zero_grad()
             outputs = model(images)
             loss = criterion(outputs, labels)
@@ -74,9 +74,9 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         total = 0
         with torch.no_grad():
             for i, (images, labels) in enumerate(val_loader):
-                # images, labels = images.to(device), labels.to(device)
+                images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
-                labels = labels.to(device)
+                # labels = labels.to(device)
                 loss = criterion(outputs, labels)
                 val_loss += loss.item()
 
