@@ -9,6 +9,7 @@ from tqdm import tqdm
 import numpy as np
 import torch
 import torch.nn.functional as F
+import os
 
 def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir):
     # Set random seed for reproducibility
@@ -25,7 +26,15 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         f.write(str(model.transformer) + '\n')
         f.write(str(optimizer) + '\n')
 
+    # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    model.cuda()
+
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    # # 使用 DataParallel 将模型并行化
+    # if torch.cuda.device_count() > 1:
+    #     print(f"Using {torch.cuda.device_count()} GPUs")
+    #     model = torch.nn.DataParallel(model)
+    
     model.to(device)
 
     best_val_loss = float('inf')
@@ -41,7 +50,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         progress_bar = tqdm(train_loader, desc=f'Epoch {epoch+1}/{epochs}', leave=False)
         for images, labels in progress_bar:
             images, labels = images.to(device), labels.to(device)
-
+            # labels = labels.to(device)
             optimizer.zero_grad()
             outputs = model(images)
             loss = criterion(outputs, labels)
@@ -67,7 +76,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
             for i, (images, labels) in enumerate(val_loader):
                 images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
-
+                # labels = labels.to(device)
                 loss = criterion(outputs, labels)
                 val_loss += loss.item()
 
