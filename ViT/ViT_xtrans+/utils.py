@@ -99,7 +99,7 @@ class AddGaussianNoise(object):
         return tensor + noise
 
 # CIFAR dataset
-cifar_transform_train = transforms.Compose([
+cifar_transform = transforms.Compose([
     transforms.RandomHorizontalFlip(),
     transforms.RandomCrop(32, padding=4), 
     transforms.RandomRotation(15), 
@@ -108,22 +108,17 @@ cifar_transform_train = transforms.Compose([
     transforms.Normalize([125 / 255, 124 / 255, 115 / 255], [60 / 255, 59 / 255, 64 / 255])
 ])
 
-cifar_transform_valid = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize([125 / 255, 124 / 255, 115 / 255], [60 / 255, 59 / 255, 64 / 255])
-])
-
 cifar_train_set = CIFAR10(
     root="./data",
     download=True,
-    transform=cifar_transform_train,
+    transform=cifar_transform,
     train=True,
 )
 
 cifar_val_set = CIFAR10(
     root="./data",
     download=True,
-    transform=cifar_transform_valid,
+    transform=cifar_transform,
     train=False,
 )
 
