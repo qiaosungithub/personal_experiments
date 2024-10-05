@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from math import sqrt, pi
+import math
 # try: 
 #     from ViT.x_transformers import AttentionLayers
 # except:
@@ -19,6 +20,17 @@ class GELU(nn.Module):
         super(GELU, self).__init__()
     def forward(self, x):
         return 0.5 * x * (1 + torch.tanh(sqrt(2 / pi) * (x + 0.044715 * torch.pow(x, 3))))
+    
+def SinousoidalPositionalEmbedding(seq_len, embedding_dim):
+    position = torch.arange(seq_len).float().unsqueeze(1)
+    div_term = torch.exp(torch.arange(0, embedding_dim, 2).float() * -math.log(10000.0) / embedding_dim)
+    pos_embedding = torch.zeros(seq_len, embedding_dim)
+    pos_embedding[:, 0::2] = torch.sin(position * div_term)
+    pos_embedding[:, 1::2] = torch.cos(position * div_term)
+    # return pos_embedding.to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))4
+    pos_embedding = pos_embedding.unsqueeze(0)
+    assert pos_embedding.shape == torch.Size((1, seq_len, embedding_dim))
+    return pos_embedding
 
 class tranformer_layer(nn.Module):
     def __init__(self, embed_dim, n_heads, attn_dim, mlp_dim = None, dropout=0.0, mlp_dropout=0.0):
@@ -67,12 +79,11 @@ class tranformer_layer(nn.Module):
         return x
 
 class ViT(nn.Module):
-    def __init__(self, image_size, patch_size, num_classes, embed_dim, n_layers, heads, attn_dim, mlp_dim=None, pool = 'cls', channels = 3, dropout=0.0, mlp_dropout=0.0):
+    def __init__(self, image_size, patch_size, num_classes, embed_dim, n_layers, heads, attn_dim, mlp_dim=None, channels = 3, dropout=0.0, mlp_dropout=0.0, embedding="learnable"):
         super(ViT, self).__init__()
         assert image_size % patch_size == 0, 'Image dimensions must be divisible by the patch size.'
         num_patches = (image_size // patch_size) ** 2
         patch_dim = channels * patch_size ** 2
-        assert pool == 'cls'
 
         self.image_size = image_size
         self.patch_size = patch_size
@@ -81,7 +92,12 @@ class ViT(nn.Module):
         self.patch_dim = patch_dim
 
         self.patch_embedding = nn.Linear(patch_dim, embed_dim)
-        self.positional_embedding = nn.Parameter(torch.randn(1, num_patches + 1, embed_dim))
+        if embedding == "learnable":
+            self.positional_embedding = nn.Parameter(torch.randn(1, num_patches + 1, embed_dim))
+        elif embedding == "sinousoidal":
+            self.positional_embedding = SinousoidalPositionalEmbedding(num_patches + 1, embed_dim)
+        else:
+            raise NotImplementedError, "embedding must be either 'learnable' or 'sinousoidal'"
         self.dropout = nn.Dropout(0.1)
         self.cls_token = nn.Parameter(torch.randn(1, 1, embed_dim))
         self.transformer = nn.Sequential(*[tranformer_layer(embed_dim, heads, attn_dim, mlp_dim, dropout=dropout, mlp_dropout=mlp_dropout) for _ in range(n_layers)])
@@ -94,7 +110,6 @@ class ViT(nn.Module):
         #     ff_dropout=mlp_dropout,
         # )
         
-        self.pool = pool
         self.LN = nn.LayerNorm(embed_dim)
         self.to_cls_token = nn.Identity()
         self.fc = nn.Linear(embed_dim, num_classes)
