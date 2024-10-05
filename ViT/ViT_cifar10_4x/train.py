@@ -36,6 +36,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, outdir)
         model = torch.nn.DataParallel(model)
     
     # model.to(device)
+    # model.positional_embedding = model.positional_embedding.cuda()
 
     best_val_loss = float('inf')
     train_losses = []

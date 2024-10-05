@@ -143,6 +143,7 @@ class ViT(nn.Module):
         x = torch.cat((cls_tokens, x), dim=1)
 
         assert x.shape == torch.Size((x.shape[0], self.num_patches + 1, self.embed_dim))
+        self.positional_embedding = self.positional_embedding.cuda()
         x += self.positional_embedding
         x = self.dropout(x)
         x = self.transformer(x)
