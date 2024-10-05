@@ -65,29 +65,29 @@ def corruption(x, type_='ebm', noise_scale=0.3):
     return broken_data, mask
 
 
-transform = transforms.Compose([
-    # convert PIL image to tensor:
-    transforms.ToTensor(),
-    # add uniform noise:
-    transforms.Lambda(lambda x: (x + torch.rand_like(x).div_(256.))),
-    # rescale to [0.0001, 0.9999]:
-    transforms.Lambda(lambda x: rescale(x, 0.0001, 0.9999)),
-])
+# transform = transforms.Compose([
+#     # convert PIL image to tensor:
+#     transforms.ToTensor(),
+#     # add uniform noise:
+#     transforms.Lambda(lambda x: (x + torch.rand_like(x).div_(256.))),
+#     # rescale to [0.0001, 0.9999]:
+#     transforms.Lambda(lambda x: rescale(x, 0.0001, 0.9999)),
+# ])
 
-# image tensor range [0, 1]
-train_set = MNIST(
-    root="./data",
-    download=True,
-    transform=transform,
-    train=True,
-)
+# # image tensor range [0, 1]
+# train_set = MNIST(
+#     root="./data",
+#     download=True,
+#     transform=transform,
+#     train=True,
+# )
 
-val_set = MNIST(
-    root="./data",
-    download=True,
-    transform=transform,
-    train=False,
-)
+# val_set = MNIST(
+#     root="./data",
+#     download=True,
+#     transform=transform,
+#     train=False,
+# )
 
 class AddGaussianNoise(object):
     def __init__(self, mean=0.0, std=1.0):
