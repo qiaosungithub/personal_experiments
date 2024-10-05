@@ -97,7 +97,7 @@ class ViT(nn.Module):
         elif embedding == "sinousoidal":
             self.positional_embedding = SinousoidalPositionalEmbedding(num_patches + 1, embed_dim)
         else:
-            raise NotImplementedError, "embedding must be either 'learnable' or 'sinousoidal'"
+            raise NotImplementedError("embedding must be either 'learnable' or 'sinousoidal'")
         self.dropout = nn.Dropout(0.1)
         self.cls_token = nn.Parameter(torch.randn(1, 1, embed_dim))
         self.transformer = nn.Sequential(*[tranformer_layer(embed_dim, heads, attn_dim, mlp_dim, dropout=dropout, mlp_dropout=mlp_dropout) for _ in range(n_layers)])
