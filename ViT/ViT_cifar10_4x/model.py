@@ -4,10 +4,10 @@ import torch.nn.functional as F
 
 from math import sqrt, pi
 import math
-# try: 
-#     from ViT.x_transformers import AttentionLayers
-# except:
-#     from x_transformers import AttentionLayers
+try: 
+    from ViT.x_transformers import AttentionLayers
+except:
+    from x_transformers import AttentionLayers
 
 class Swish(nn.Module):
     def __init__(self):
@@ -100,15 +100,15 @@ class ViT(nn.Module):
             raise NotImplementedError("embedding must be either 'learnable' or 'sinousoidal'")
         self.dropout = nn.Dropout(0.1)
         self.cls_token = nn.Parameter(torch.randn(1, 1, embed_dim))
-        self.transformer = nn.Sequential(*[tranformer_layer(embed_dim, heads, attn_dim, mlp_dim, dropout=dropout, mlp_dropout=mlp_dropout) for _ in range(n_layers)])
-        # self.transformer = AttentionLayers(
-        #     dim=embed_dim,
-        #     heads=heads,
-        #     depth=n_layers,
-        #     attn_dim_head=attn_dim // heads,
-        #     attn_dropout=dropout,
-        #     ff_dropout=mlp_dropout,
-        # )
+        # self.transformer = nn.Sequential(*[tranformer_layer(embed_dim, heads, attn_dim, mlp_dim, dropout=dropout, mlp_dropout=mlp_dropout) for _ in range(n_layers)])
+        self.transformer = AttentionLayers(
+            dim=embed_dim,
+            heads=heads,
+            depth=n_layers,
+            attn_dim_head=attn_dim // heads,
+            attn_dropout=dropout,
+            ff_dropout=mlp_dropout,
+        )
         
         self.LN = nn.LayerNorm(embed_dim)
         self.to_cls_token = nn.Identity()
