@@ -1,0 +1,237 @@
+the modelViT(
+  (patch_embedding): Linear(in_features=768, out_features=512, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (transformer): Sequential(
+    (0): tranformer_layer(
+      (QKV): Linear(in_features=512, out_features=3072, bias=False)
+      (fc): Linear(in_features=1024, out_features=512, bias=False)
+      (mlp): Sequential(
+        (0): Linear(in_features=512, out_features=2048, bias=True)
+        (1): GELU()
+        (2): Dropout(p=0.0, inplace=False)
+        (3): Linear(in_features=2048, out_features=512, bias=True)
+      )
+      (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (dropout1): Dropout(p=0.0, inplace=False)
+      (dropout2): Dropout(p=0.0, inplace=False)
+    )
+    (1): tranformer_layer(
+      (QKV): Linear(in_features=512, out_features=3072, bias=False)
+      (fc): Linear(in_features=1024, out_features=512, bias=False)
+      (mlp): Sequential(
+        (0): Linear(in_features=512, out_features=2048, bias=True)
+        (1): GELU()
+        (2): Dropout(p=0.0, inplace=False)
+        (3): Linear(in_features=2048, out_features=512, bias=True)
+      )
+      (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (dropout1): Dropout(p=0.0, inplace=False)
+      (dropout2): Dropout(p=0.0, inplace=False)
+    )
+    (2): tranformer_layer(
+      (QKV): Linear(in_features=512, out_features=3072, bias=False)
+      (fc): Linear(in_features=1024, out_features=512, bias=False)
+      (mlp): Sequential(
+        (0): Linear(in_features=512, out_features=2048, bias=True)
+        (1): GELU()
+        (2): Dropout(p=0.0, inplace=False)
+        (3): Linear(in_features=2048, out_features=512, bias=True)
+      )
+      (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (dropout1): Dropout(p=0.0, inplace=False)
+      (dropout2): Dropout(p=0.0, inplace=False)
+    )
+    (3): tranformer_layer(
+      (QKV): Linear(in_features=512, out_features=3072, bias=False)
+      (fc): Linear(in_features=1024, out_features=512, bias=False)
+      (mlp): Sequential(
+        (0): Linear(in_features=512, out_features=2048, bias=True)
+        (1): GELU()
+        (2): Dropout(p=0.0, inplace=False)
+        (3): Linear(in_features=2048, out_features=512, bias=True)
+      )
+      (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (dropout1): Dropout(p=0.0, inplace=False)
+      (dropout2): Dropout(p=0.0, inplace=False)
+    )
+    (4): tranformer_layer(
+      (QKV): Linear(in_features=512, out_features=3072, bias=False)
+      (fc): Linear(in_features=1024, out_features=512, bias=False)
+      (mlp): Sequential(
+        (0): Linear(in_features=512, out_features=2048, bias=True)
+        (1): GELU()
+        (2): Dropout(p=0.0, inplace=False)
+        (3): Linear(in_features=2048, out_features=512, bias=True)
+      )
+      (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (dropout1): Dropout(p=0.0, inplace=False)
+      (dropout2): Dropout(p=0.0, inplace=False)
+    )
+    (5): tranformer_layer(
+      (QKV): Linear(in_features=512, out_features=3072, bias=False)
+      (fc): Linear(in_features=1024, out_features=512, bias=False)
+      (mlp): Sequential(
+        (0): Linear(in_features=512, out_features=2048, bias=True)
+        (1): GELU()
+        (2): Dropout(p=0.0, inplace=False)
+        (3): Linear(in_features=2048, out_features=512, bias=True)
+      )
+      (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+      (dropout1): Dropout(p=0.0, inplace=False)
+      (dropout2): Dropout(p=0.0, inplace=False)
+    )
+  )
+  (LN): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+  (to_cls_token): Identity()
+  (fc): Linear(in_features=512, out_features=10, bias=True)
+)
+the transformerSequential(
+  (0): tranformer_layer(
+    (QKV): Linear(in_features=512, out_features=3072, bias=False)
+    (fc): Linear(in_features=1024, out_features=512, bias=False)
+    (mlp): Sequential(
+      (0): Linear(in_features=512, out_features=2048, bias=True)
+      (1): GELU()
+      (2): Dropout(p=0.0, inplace=False)
+      (3): Linear(in_features=2048, out_features=512, bias=True)
+    )
+    (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (dropout1): Dropout(p=0.0, inplace=False)
+    (dropout2): Dropout(p=0.0, inplace=False)
+  )
+  (1): tranformer_layer(
+    (QKV): Linear(in_features=512, out_features=3072, bias=False)
+    (fc): Linear(in_features=1024, out_features=512, bias=False)
+    (mlp): Sequential(
+      (0): Linear(in_features=512, out_features=2048, bias=True)
+      (1): GELU()
+      (2): Dropout(p=0.0, inplace=False)
+      (3): Linear(in_features=2048, out_features=512, bias=True)
+    )
+    (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (dropout1): Dropout(p=0.0, inplace=False)
+    (dropout2): Dropout(p=0.0, inplace=False)
+  )
+  (2): tranformer_layer(
+    (QKV): Linear(in_features=512, out_features=3072, bias=False)
+    (fc): Linear(in_features=1024, out_features=512, bias=False)
+    (mlp): Sequential(
+      (0): Linear(in_features=512, out_features=2048, bias=True)
+      (1): GELU()
+      (2): Dropout(p=0.0, inplace=False)
+      (3): Linear(in_features=2048, out_features=512, bias=True)
+    )
+    (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (dropout1): Dropout(p=0.0, inplace=False)
+    (dropout2): Dropout(p=0.0, inplace=False)
+  )
+  (3): tranformer_layer(
+    (QKV): Linear(in_features=512, out_features=3072, bias=False)
+    (fc): Linear(in_features=1024, out_features=512, bias=False)
+    (mlp): Sequential(
+      (0): Linear(in_features=512, out_features=2048, bias=True)
+      (1): GELU()
+      (2): Dropout(p=0.0, inplace=False)
+      (3): Linear(in_features=2048, out_features=512, bias=True)
+    )
+    (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (dropout1): Dropout(p=0.0, inplace=False)
+    (dropout2): Dropout(p=0.0, inplace=False)
+  )
+  (4): tranformer_layer(
+    (QKV): Linear(in_features=512, out_features=3072, bias=False)
+    (fc): Linear(in_features=1024, out_features=512, bias=False)
+    (mlp): Sequential(
+      (0): Linear(in_features=512, out_features=2048, bias=True)
+      (1): GELU()
+      (2): Dropout(p=0.0, inplace=False)
+      (3): Linear(in_features=2048, out_features=512, bias=True)
+    )
+    (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (dropout1): Dropout(p=0.0, inplace=False)
+    (dropout2): Dropout(p=0.0, inplace=False)
+  )
+  (5): tranformer_layer(
+    (QKV): Linear(in_features=512, out_features=3072, bias=False)
+    (fc): Linear(in_features=1024, out_features=512, bias=False)
+    (mlp): Sequential(
+      (0): Linear(in_features=512, out_features=2048, bias=True)
+      (1): GELU()
+      (2): Dropout(p=0.0, inplace=False)
+      (3): Linear(in_features=2048, out_features=512, bias=True)
+    )
+    (norm1): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (norm2): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    (dropout1): Dropout(p=0.0, inplace=False)
+    (dropout2): Dropout(p=0.0, inplace=False)
+  )
+)
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0001
+    weight_decay: 0.0005
+)
+Epoch 0: train loss 1.881712694137622, val loss 1.6217100739479064, val accuracy 40.85, train acc 29.4125
+Epoch 1: train loss 1.506195677735935, val loss 1.4161177724599838, val accuracy 48.72, train acc 45.1925
+Epoch 2: train loss 1.3249561973273183, val loss 1.2811983942985534, val accuracy 54.38, train acc 52.3375
+Epoch 3: train loss 1.2361747201639242, val loss 1.2195660203695298, val accuracy 56.09, train acc 55.4525
+Epoch 4: train loss 1.1623713871160635, val loss 1.1535548120737076, val accuracy 58.23, train acc 58.3225
+Epoch 5: train loss 1.1184656256304, val loss 1.1117336466908454, val accuracy 60.45, train acc 60.0575
+Epoch 6: train loss 1.0800431163166277, val loss 1.0826452508568765, val accuracy 61.96, train acc 61.405
+Epoch 7: train loss 1.0373943095770888, val loss 1.0407726004719735, val accuracy 63.34, train acc 62.925
+Epoch 8: train loss 1.0072681856231567, val loss 1.018198935687542, val accuracy 63.44, train acc 64.1075
+Epoch 9: train loss 0.9846055364837281, val loss 1.005407376587391, val accuracy 64.62, train acc 64.915
+Epoch 10: train loss 0.9479896220536278, val loss 1.0105515092611312, val accuracy 64.75, train acc 66.4825
+Epoch 11: train loss 0.9243914205045365, val loss 0.9727051764726639, val accuracy 66.08, train acc 67.07
+Epoch 12: train loss 0.9135560911303511, val loss 0.9701702520251274, val accuracy 65.68, train acc 67.6725
+Epoch 13: train loss 0.8856537117363926, val loss 0.9371509805321694, val accuracy 67.15, train acc 68.5175
+Epoch 14: train loss 0.8723781883907014, val loss 0.914767387509346, val accuracy 68.45, train acc 69.08
+Epoch 15: train loss 0.8503053536811195, val loss 0.9188605427742005, val accuracy 67.46, train acc 69.7525
+Epoch 16: train loss 0.8366987676666187, val loss 0.8817376449704171, val accuracy 68.98, train acc 70.53
+Epoch 17: train loss 0.8248046286189898, val loss 0.9026225835084916, val accuracy 68.42, train acc 70.9525
+Epoch 18: train loss 0.8101542285456064, val loss 0.8683508053421974, val accuracy 69.96, train acc 71.4
+Epoch 19: train loss 0.7910353491862361, val loss 0.8493810802698135, val accuracy 70.79, train acc 72.16
+Epoch 20: train loss 0.7858601265821975, val loss 0.8520053133368493, val accuracy 70.54, train acc 72.105
+Epoch 21: train loss 0.7678472698686983, val loss 0.8422238945960998, val accuracy 70.81, train acc 72.715
+Epoch 22: train loss 0.7533402745716107, val loss 0.8385325267910957, val accuracy 71.34, train acc 73.3575
+Epoch 23: train loss 0.7413051419745619, val loss 0.8554220706224441, val accuracy 70.83, train acc 73.86
+Epoch 24: train loss 0.7385899045596869, val loss 0.8118881314992905, val accuracy 72.36, train acc 73.8275
+Epoch 25: train loss 0.7195451221527002, val loss 0.8069101512432099, val accuracy 72.6, train acc 74.615
+Epoch 26: train loss 0.7061753275866707, val loss 0.8101192697882652, val accuracy 72.26, train acc 75.08
+Epoch 27: train loss 0.6990428796401039, val loss 0.8553896889090538, val accuracy 70.63, train acc 75.2225
+Epoch 28: train loss 0.6940629581292979, val loss 0.8232317268848419, val accuracy 71.25, train acc 75.3525
+Epoch 29: train loss 0.6735837581439521, val loss 0.7728598520159722, val accuracy 73.12, train acc 76.095
+Epoch 30: train loss 0.6687248378706435, val loss 0.777704544365406, val accuracy 73.59, train acc 76.4
+Epoch 31: train loss 0.6558853492569238, val loss 0.7738365590572357, val accuracy 73.76, train acc 76.78
+Epoch 32: train loss 0.6526136598267114, val loss 0.7639005839824676, val accuracy 73.73, train acc 77.0875
+Epoch 33: train loss 0.6386135645186939, val loss 0.7944296032190323, val accuracy 72.59, train acc 77.4375
+Epoch 34: train loss 0.6304426842604202, val loss 0.7605132192373276, val accuracy 74.15, train acc 77.655
+Epoch 35: train loss 0.616120501257741, val loss 0.7805529817938804, val accuracy 73.74, train acc 78.225
+Epoch 36: train loss 0.6161826965146171, val loss 0.7695997074246407, val accuracy 74.53, train acc 78.195
+Epoch 37: train loss 0.6062747288626223, val loss 0.7684790790081024, val accuracy 73.89, train acc 78.5875
+Epoch 38: train loss 0.6025648552198379, val loss 0.7873278468847275, val accuracy 73.7, train acc 78.54
+Epoch 39: train loss 0.5939772445172928, val loss 0.7950406014919281, val accuracy 73.57, train acc 79.105
+Epoch 40: train loss 0.5823814171000411, val loss 0.7551663145422935, val accuracy 73.94, train acc 79.4175
+Epoch 41: train loss 0.5783205643629494, val loss 0.7534348666667938, val accuracy 74.49, train acc 79.6325
+Epoch 42: train loss 0.5720383332560237, val loss 0.7736787304282189, val accuracy 74.15, train acc 79.925
+Epoch 43: train loss 0.5610955990731906, val loss 0.763024064898491, val accuracy 74.86, train acc 80.0925
+Epoch 44: train loss 0.5558064852278835, val loss 0.7531691268086433, val accuracy 75.1, train acc 80.325
+Epoch 45: train loss 0.5508985576538232, val loss 0.7292720764875412, val accuracy 75.38, train acc 80.4475
+Epoch 46: train loss 0.5408409707272015, val loss 0.733995608985424, val accuracy 75.58, train acc 80.855
+Epoch 47: train loss 0.5345752402997246, val loss 0.7490804240107536, val accuracy 75.15, train acc 80.9925
+Epoch 48: train loss 0.5299455171195082, val loss 0.7409911587834358, val accuracy 75.8, train acc 81.1375
+Epoch 49: train loss 0.5265540099753359, val loss 0.7212716408073903, val accuracy 75.53, train acc 81.25

@@ -1,0 +1,577 @@
+the modelViT(
+  (patch_embedding): Linear(in_features=768, out_features=512, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (transformer): AttentionLayers(
+    (layers): ModuleList(
+      (0): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): Attention(
+          (to_q): Linear(in_features=512, out_features=1024, bias=False)
+          (to_k): Linear(in_features=512, out_features=1024, bias=False)
+          (to_v): Linear(in_features=512, out_features=1024, bias=False)
+          (attend): Attend(
+            (attn_dropout): Dropout(p=0.2, inplace=False)
+          )
+          (to_out): Linear(in_features=1024, out_features=512, bias=False)
+        )
+        (2): Residual()
+      )
+      (1): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): FeedForward(
+          (ff): Sequential(
+            (0): Sequential(
+              (0): Linear(in_features=512, out_features=2048, bias=True)
+              (1): MyGELU()
+            )
+            (1): Dropout(p=0.2, inplace=False)
+            (2): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): Residual()
+      )
+      (2): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): Attention(
+          (to_q): Linear(in_features=512, out_features=1024, bias=False)
+          (to_k): Linear(in_features=512, out_features=1024, bias=False)
+          (to_v): Linear(in_features=512, out_features=1024, bias=False)
+          (attend): Attend(
+            (attn_dropout): Dropout(p=0.2, inplace=False)
+          )
+          (to_out): Linear(in_features=1024, out_features=512, bias=False)
+        )
+        (2): Residual()
+      )
+      (3): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): FeedForward(
+          (ff): Sequential(
+            (0): Sequential(
+              (0): Linear(in_features=512, out_features=2048, bias=True)
+              (1): MyGELU()
+            )
+            (1): Dropout(p=0.2, inplace=False)
+            (2): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): Residual()
+      )
+      (4): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): Attention(
+          (to_q): Linear(in_features=512, out_features=1024, bias=False)
+          (to_k): Linear(in_features=512, out_features=1024, bias=False)
+          (to_v): Linear(in_features=512, out_features=1024, bias=False)
+          (attend): Attend(
+            (attn_dropout): Dropout(p=0.2, inplace=False)
+          )
+          (to_out): Linear(in_features=1024, out_features=512, bias=False)
+        )
+        (2): Residual()
+      )
+      (5): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): FeedForward(
+          (ff): Sequential(
+            (0): Sequential(
+              (0): Linear(in_features=512, out_features=2048, bias=True)
+              (1): MyGELU()
+            )
+            (1): Dropout(p=0.2, inplace=False)
+            (2): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): Residual()
+      )
+      (6): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): Attention(
+          (to_q): Linear(in_features=512, out_features=1024, bias=False)
+          (to_k): Linear(in_features=512, out_features=1024, bias=False)
+          (to_v): Linear(in_features=512, out_features=1024, bias=False)
+          (attend): Attend(
+            (attn_dropout): Dropout(p=0.2, inplace=False)
+          )
+          (to_out): Linear(in_features=1024, out_features=512, bias=False)
+        )
+        (2): Residual()
+      )
+      (7): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): FeedForward(
+          (ff): Sequential(
+            (0): Sequential(
+              (0): Linear(in_features=512, out_features=2048, bias=True)
+              (1): MyGELU()
+            )
+            (1): Dropout(p=0.2, inplace=False)
+            (2): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): Residual()
+      )
+      (8): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): Attention(
+          (to_q): Linear(in_features=512, out_features=1024, bias=False)
+          (to_k): Linear(in_features=512, out_features=1024, bias=False)
+          (to_v): Linear(in_features=512, out_features=1024, bias=False)
+          (attend): Attend(
+            (attn_dropout): Dropout(p=0.2, inplace=False)
+          )
+          (to_out): Linear(in_features=1024, out_features=512, bias=False)
+        )
+        (2): Residual()
+      )
+      (9): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): FeedForward(
+          (ff): Sequential(
+            (0): Sequential(
+              (0): Linear(in_features=512, out_features=2048, bias=True)
+              (1): MyGELU()
+            )
+            (1): Dropout(p=0.2, inplace=False)
+            (2): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): Residual()
+      )
+      (10): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): Attention(
+          (to_q): Linear(in_features=512, out_features=1024, bias=False)
+          (to_k): Linear(in_features=512, out_features=1024, bias=False)
+          (to_v): Linear(in_features=512, out_features=1024, bias=False)
+          (attend): Attend(
+            (attn_dropout): Dropout(p=0.2, inplace=False)
+          )
+          (to_out): Linear(in_features=1024, out_features=512, bias=False)
+        )
+        (2): Residual()
+      )
+      (11): ModuleList(
+        (0): ModuleList(
+          (0): LayerNorm(
+            (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+          )
+          (1): None
+          (2): None
+        )
+        (1): FeedForward(
+          (ff): Sequential(
+            (0): Sequential(
+              (0): Linear(in_features=512, out_features=2048, bias=True)
+              (1): MyGELU()
+            )
+            (1): Dropout(p=0.2, inplace=False)
+            (2): Linear(in_features=2048, out_features=512, bias=True)
+          )
+        )
+        (2): Residual()
+      )
+    )
+    (adaptive_mlp): Identity()
+    (final_norm): LayerNorm(
+      (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+    )
+    (skip_combines): ModuleList(
+      (0): None
+      (1): None
+      (2): None
+      (3): None
+      (4): None
+      (5): None
+      (6): None
+      (7): None
+      (8): None
+      (9): None
+      (10): None
+      (11): None
+    )
+  )
+  (LN): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+  (to_cls_token): Identity()
+  (fc): Linear(in_features=512, out_features=10, bias=True)
+)
+the transformerAttentionLayers(
+  (layers): ModuleList(
+    (0): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): Attention(
+        (to_q): Linear(in_features=512, out_features=1024, bias=False)
+        (to_k): Linear(in_features=512, out_features=1024, bias=False)
+        (to_v): Linear(in_features=512, out_features=1024, bias=False)
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.2, inplace=False)
+        )
+        (to_out): Linear(in_features=1024, out_features=512, bias=False)
+      )
+      (2): Residual()
+    )
+    (1): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): FeedForward(
+        (ff): Sequential(
+          (0): Sequential(
+            (0): Linear(in_features=512, out_features=2048, bias=True)
+            (1): MyGELU()
+          )
+          (1): Dropout(p=0.2, inplace=False)
+          (2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+      (2): Residual()
+    )
+    (2): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): Attention(
+        (to_q): Linear(in_features=512, out_features=1024, bias=False)
+        (to_k): Linear(in_features=512, out_features=1024, bias=False)
+        (to_v): Linear(in_features=512, out_features=1024, bias=False)
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.2, inplace=False)
+        )
+        (to_out): Linear(in_features=1024, out_features=512, bias=False)
+      )
+      (2): Residual()
+    )
+    (3): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): FeedForward(
+        (ff): Sequential(
+          (0): Sequential(
+            (0): Linear(in_features=512, out_features=2048, bias=True)
+            (1): MyGELU()
+          )
+          (1): Dropout(p=0.2, inplace=False)
+          (2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+      (2): Residual()
+    )
+    (4): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): Attention(
+        (to_q): Linear(in_features=512, out_features=1024, bias=False)
+        (to_k): Linear(in_features=512, out_features=1024, bias=False)
+        (to_v): Linear(in_features=512, out_features=1024, bias=False)
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.2, inplace=False)
+        )
+        (to_out): Linear(in_features=1024, out_features=512, bias=False)
+      )
+      (2): Residual()
+    )
+    (5): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): FeedForward(
+        (ff): Sequential(
+          (0): Sequential(
+            (0): Linear(in_features=512, out_features=2048, bias=True)
+            (1): MyGELU()
+          )
+          (1): Dropout(p=0.2, inplace=False)
+          (2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+      (2): Residual()
+    )
+    (6): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): Attention(
+        (to_q): Linear(in_features=512, out_features=1024, bias=False)
+        (to_k): Linear(in_features=512, out_features=1024, bias=False)
+        (to_v): Linear(in_features=512, out_features=1024, bias=False)
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.2, inplace=False)
+        )
+        (to_out): Linear(in_features=1024, out_features=512, bias=False)
+      )
+      (2): Residual()
+    )
+    (7): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): FeedForward(
+        (ff): Sequential(
+          (0): Sequential(
+            (0): Linear(in_features=512, out_features=2048, bias=True)
+            (1): MyGELU()
+          )
+          (1): Dropout(p=0.2, inplace=False)
+          (2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+      (2): Residual()
+    )
+    (8): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): Attention(
+        (to_q): Linear(in_features=512, out_features=1024, bias=False)
+        (to_k): Linear(in_features=512, out_features=1024, bias=False)
+        (to_v): Linear(in_features=512, out_features=1024, bias=False)
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.2, inplace=False)
+        )
+        (to_out): Linear(in_features=1024, out_features=512, bias=False)
+      )
+      (2): Residual()
+    )
+    (9): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): FeedForward(
+        (ff): Sequential(
+          (0): Sequential(
+            (0): Linear(in_features=512, out_features=2048, bias=True)
+            (1): MyGELU()
+          )
+          (1): Dropout(p=0.2, inplace=False)
+          (2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+      (2): Residual()
+    )
+    (10): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): Attention(
+        (to_q): Linear(in_features=512, out_features=1024, bias=False)
+        (to_k): Linear(in_features=512, out_features=1024, bias=False)
+        (to_v): Linear(in_features=512, out_features=1024, bias=False)
+        (attend): Attend(
+          (attn_dropout): Dropout(p=0.2, inplace=False)
+        )
+        (to_out): Linear(in_features=1024, out_features=512, bias=False)
+      )
+      (2): Residual()
+    )
+    (11): ModuleList(
+      (0): ModuleList(
+        (0): LayerNorm(
+          (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+        )
+        (1): None
+        (2): None
+      )
+      (1): FeedForward(
+        (ff): Sequential(
+          (0): Sequential(
+            (0): Linear(in_features=512, out_features=2048, bias=True)
+            (1): MyGELU()
+          )
+          (1): Dropout(p=0.2, inplace=False)
+          (2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+      (2): Residual()
+    )
+  )
+  (adaptive_mlp): Identity()
+  (final_norm): LayerNorm(
+    (ln): LayerNorm((512,), eps=1e-05, elementwise_affine=False)
+  )
+  (skip_combines): ModuleList(
+    (0): None
+    (1): None
+    (2): None
+    (3): None
+    (4): None
+    (5): None
+    (6): None
+    (7): None
+    (8): None
+    (9): None
+    (10): None
+    (11): None
+  )
+)
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0001
+    weight_decay: 0
+)
+Epoch 0: train loss 1.8355191230012204, val loss 1.6052752077579497, val accuracy 41.53, train acc 30.995
+Epoch 1: train loss 1.4762164057253269, val loss 1.405883076786995, val accuracy 49.76, train acc 46.115
+Epoch 2: train loss 1.3117386704435745, val loss 1.260844460129738, val accuracy 54.46, train acc 52.705
+Epoch 3: train loss 1.2194049061296848, val loss 1.1526459127664566, val accuracy 58.1, train acc 56.105
+Epoch 4: train loss 1.1438326704235504, val loss 1.101215200126171, val accuracy 60.42, train acc 58.9825
+Epoch 5: train loss 1.0911063435740365, val loss 1.0513932436704636, val accuracy 63.15, train acc 61.0375
+Epoch 6: train loss 1.0427530971578896, val loss 1.0068031147122383, val accuracy 64.39, train acc 62.78
+Epoch 7: train loss 1.0001309557844655, val loss 0.9903302937746048, val accuracy 64.96, train acc 64.2125
+Epoch 8: train loss 0.9573418025772411, val loss 0.9359409153461457, val accuracy 66.9, train acc 65.8025
+Epoch 9: train loss 0.9239059142030466, val loss 0.9153096973896027, val accuracy 67.64, train acc 67.13
+Epoch 10: train loss 0.8840172351739658, val loss 0.9113654598593712, val accuracy 67.98, train acc 68.67
+Epoch 11: train loss 0.8536801703821737, val loss 0.8609798133373261, val accuracy 69.62, train acc 69.6925
+Epoch 12: train loss 0.8231907201270325, val loss 0.849439199268818, val accuracy 70.56, train acc 70.835
+Epoch 13: train loss 0.7896454006719132, val loss 0.8394260168075561, val accuracy 70.31, train acc 72.14
+Epoch 14: train loss 0.770282628818061, val loss 0.8107721671462059, val accuracy 71.85, train acc 72.65
+Epoch 15: train loss 0.7445640848657955, val loss 0.8284547120332718, val accuracy 71.66, train acc 73.785
+Epoch 16: train loss 0.718335325535113, val loss 0.7636364057660103, val accuracy 73.37, train acc 74.4525
+Epoch 17: train loss 0.700073301982575, val loss 0.8166317820549012, val accuracy 72.28, train acc 75.1725
+Epoch 18: train loss 0.6802297670620318, val loss 0.7613350123167038, val accuracy 73.89, train acc 75.745
+Epoch 19: train loss 0.6525847319596872, val loss 0.7523764446377754, val accuracy 74.6, train acc 76.8975
+Epoch 20: train loss 0.6472099046356762, val loss 0.761428852379322, val accuracy 74.02, train acc 76.82
+Epoch 21: train loss 0.6166165429182326, val loss 0.7305275812745095, val accuracy 75.19, train acc 77.9625
+Epoch 22: train loss 0.6002727991666276, val loss 0.7674979120492935, val accuracy 73.68, train acc 78.6225
+Epoch 23: train loss 0.5825204601683937, val loss 0.7527532175183296, val accuracy 74.76, train acc 79.2975
+Epoch 24: train loss 0.564361966170442, val loss 0.7289457440376281, val accuracy 75.69, train acc 79.7925
+Epoch 25: train loss 0.5465281477180152, val loss 0.7443356081843376, val accuracy 75.37, train acc 80.495
+Epoch 26: train loss 0.5246373571146029, val loss 0.7183939024806023, val accuracy 75.96, train acc 81.375
+Epoch 27: train loss 0.5170925029169637, val loss 0.7396613374352455, val accuracy 76.13, train acc 81.6525
+Epoch 28: train loss 0.495739787436141, val loss 0.7667525708675385, val accuracy 74.95, train acc 82.31
+Epoch 29: train loss 0.4770840930100828, val loss 0.744068306684494, val accuracy 76.39, train acc 83.0
+Epoch 30: train loss 0.46662314564656143, val loss 0.7379974663257599, val accuracy 76.36, train acc 83.2275
+Epoch 31: train loss 0.4441686638247091, val loss 0.7370988607406617, val accuracy 77.08, train acc 84.18
+Epoch 32: train loss 0.4322212084223287, val loss 0.7580848887562752, val accuracy 76.37, train acc 84.4725
+Epoch 33: train loss 0.4183874509681147, val loss 0.7494464322924614, val accuracy 76.66, train acc 85.085
+Epoch 34: train loss 0.3979302745657607, val loss 0.7531482025980949, val accuracy 76.38, train acc 85.71
+Epoch 35: train loss 0.3849847793293456, val loss 0.7826815202832222, val accuracy 75.6, train acc 86.05
+Epoch 36: train loss 0.3668552549026264, val loss 0.7975251868367195, val accuracy 76.4, train acc 86.935
+Epoch 37: train loss 0.36322417079259794, val loss 0.7801213607192039, val accuracy 76.92, train acc 86.8425
+Epoch 38: train loss 0.3479096700017825, val loss 0.7830237925052643, val accuracy 76.47, train acc 87.4375
+Epoch 39: train loss 0.33092801844159636, val loss 0.7627461060881615, val accuracy 77.21, train acc 87.96
+Epoch 40: train loss 0.3214569302222218, val loss 0.810363444685936, val accuracy 76.57, train acc 88.455
+Epoch 41: train loss 0.3093653079419852, val loss 0.7662134692072868, val accuracy 77.13, train acc 88.8575
+Epoch 42: train loss 0.2967022079438828, val loss 0.7908235490322113, val accuracy 76.84, train acc 89.36
+Epoch 43: train loss 0.28344474513881124, val loss 0.8267431318759918, val accuracy 77.03, train acc 89.815
+Epoch 44: train loss 0.27532897832485054, val loss 0.8074250295758247, val accuracy 77.37, train acc 89.9325
+Epoch 45: train loss 0.2630173400663339, val loss 0.8382156088948249, val accuracy 77.0, train acc 90.6025
+Epoch 46: train loss 0.25608277616028585, val loss 0.8137206166982651, val accuracy 77.55, train acc 90.8
+Epoch 47: train loss 0.24611734658384476, val loss 0.8387077614665032, val accuracy 77.16, train acc 91.24
+Epoch 48: train loss 0.23629838551957005, val loss 0.864233948290348, val accuracy 76.71, train acc 91.555
+Epoch 49: train loss 0.22915488475570664, val loss 0.835883478820324, val accuracy 77.59, train acc 91.635
