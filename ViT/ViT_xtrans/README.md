@@ -1,0 +1,1 @@
+Discovery: the difference is that x-transformer's layernorm has a scale parameter. And there is a final layernorm.
