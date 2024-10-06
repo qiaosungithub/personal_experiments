@@ -14,7 +14,7 @@ import torchvision
 import os
 
 def get_outdir(time_str):
-    outdir = f"NCSN/training_data/{time_str}.out"
+    outdir = f"NCSN/log/{time_str}.out"
     return outdir
 
 def get_sample_dir(time_str):
@@ -59,8 +59,8 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
         os.makedirs("NCSN/models")
     if not os.path.exists("NCSN/samples"):
         os.makedirs("NCSN/samples")
-    if not os.path.exists("NCSN/training_data"):
-        os.makedirs("NCSN/training_data")
+    if not os.path.exists("NCSN/log"):
+        os.makedirs("NCSN/log")
 
     save_py_files(time_str)
 
