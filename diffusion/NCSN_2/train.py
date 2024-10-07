@@ -13,6 +13,26 @@ import torchvision
 
 import os
 
+def get_outdir(time_str):
+    outdir = f"NCSN/log/{time_str}.out"
+    return outdir
+
+def get_sample_dir(time_str):
+    dir = f"NCSN/samples/{time_str}/"
+    if not os.path.exists(dir):
+        os.makedirs(dir, exist_ok=True)
+    return dir
+
+def get_model_path(time_str, epoch):
+    return f"/nobackup/users/sqa24/NCSN/models/{time_str}/{epoch}.pth"
+
+def save_py_files(time_str):
+    # copy all .py files in "NCSN" to "nobackup/users/sqa24/NCSN/models/time_str"
+    if not os.path.exists(f"/nobackup/users/sqa24/NCSN/models/{time_str}"):
+        os.makedirs(f"/nobackup/users/sqa24/NCSN/models/{time_str}")
+    os.system(f"cp -r NCSN/*.py /nobackup/users/sqa24/NCSN/models/{time_str}")
+    print("code files copied")
+
 def cal_noise_level(init, final, steps):
     sigmas = []
     init = np.log(init)
@@ -27,7 +47,7 @@ def save_image(images, filename):
     grid = torchvision.utils.make_grid(images, nrow=8, padding=2, pad_value=1)
     torchvision.utils.save_image(grid, filename)
 
-def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas, eps, T, outdir, eval_freq=5, sample_dir='./NCSN/samples/'):
+def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas, eps, T, time_str, eval_freq=5):
     # Set random seed for reproducibility
     seed = 42
     np.random.seed(seed)
@@ -39,11 +59,16 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
         os.makedirs("NCSN/models")
     if not os.path.exists("NCSN/samples"):
         os.makedirs("NCSN/samples")
-    if not os.path.exists("NCSN/training_data"):
-        os.makedirs("NCSN/training_data")
+    if not os.path.exists("NCSN/log"):
+        os.makedirs("NCSN/log")
+
+    save_py_files(time_str)
 
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     model.to(device)
+
+    outdir = get_outdir(time_str)
+    sample_dir = get_sample_dir(time_str)
 
     with open(outdir, 'a') as f:
         f.write(str(model) + '\n')
@@ -55,6 +80,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
 
     best_matching_loss = float('inf')
     train_losses = []
+    # sigmas = cal_noise_level(init_sigma, final_sigma, n_sigma)
     n_sigma = len(sigmas)
     sigmas_t = torch.tensor(sigmas, device=device)
 
@@ -94,7 +120,8 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
         # save model
         if train_loss < best_matching_loss:
             best_matching_loss = train_loss
-        torch.save(model.state_dict(), "NCSN/models/{i}.pth".format(i=epoch))
+        model_path = get_model_path(time_str, epoch)
+        torch.save(model.state_dict(), model_path)
 
         if epoch % eval_freq == 0:
             # generate samples

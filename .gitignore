@@ -1,2 +1,4 @@
 ebm_hamiltonian/CIFAR/data/*
 ebm_hamiltonian/MNIST/data/*
+diffusion/log
+diffusion/log.ps1
