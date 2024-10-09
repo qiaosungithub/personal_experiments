@@ -15,10 +15,6 @@ import torchvision
 
 import os
 
-def mkdir(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
-
 def get_outdir(time_str):
     outdir = f"NCSN/log/{time_str}.out"
     return outdir
@@ -130,7 +126,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
         model_path = get_model_path(time_str, epoch)
         torch.save(model.state_dict(), model_path)
 
-        if epoch % eval_freq == 0:
+        if ((eval_freq == "square" and is_square(epoch)) or (epoch+1) % eval_freq == 0):
             # generate samples
             model.eval()
             with torch.no_grad():
@@ -138,7 +134,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
                 samples = langevin(model, x, sigmas, eps, T, clamp=False)
                 save_image(samples, sample_dir + "/{i:03d}.png".format(i=epoch))
 
-        if (epoch + 1) % eval_freq == 0:
+            # evaluate denoising
             c_mse, r_mse, original, broken, recovered = evaluate_denoising(model, sigmas, eps, T, val_loader, outdir)
             denoising_dir = get_denoising_dir(time_str, epoch)
             torchvision.utils.save_image(

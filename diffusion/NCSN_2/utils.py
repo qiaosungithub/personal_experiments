@@ -2,6 +2,8 @@ from torchvision.datasets import MNIST, CIFAR10
 from torchvision import transforms
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
+import os
 
 
 def save_model(save_path,
@@ -167,6 +169,13 @@ class MockResidualBlock(nn.Module):
         else:
             return self.conv(x) + self.skip_connection(x)
 
+def mkdir(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+def is_square(n):
+    if n == 0: return True
+    return n == int(n**0.5)**2
 
 def hello():
     print('Good luck!')
