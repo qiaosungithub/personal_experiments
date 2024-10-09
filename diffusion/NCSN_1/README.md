@@ -7,3 +7,7 @@ we focus on the following aspects:
 2. We use more channels.
 
 基本上成功了!
+
+- discovery:
+
+both when sampling or denoising from a pretrained model, using `eps=2e-5, T=100` and `eps=8e-5, T=20` have similar results. So we may just use the latter one for efficiency.

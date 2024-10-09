@@ -4,7 +4,7 @@ import os
 from math import sqrt
 
 @torch.no_grad()
-def langevin(score_model, x, sigmas, eps, T, save=False, epochs=None, clamp=False, time_str=None):
+def langevin(score_model, x, sigmas, eps, T, save=False, epochs=None, clamp=False):
     # it's better not to clamp
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     bs = x.shape[0]
@@ -29,10 +29,7 @@ def langevin(score_model, x, sigmas, eps, T, save=False, epochs=None, clamp=Fals
         assert x.shape[0] == 10
         assert len(sigmas) == 10
         assert epochs is not None
-        if time_str is not None:
-            save_dir = f'./NCSN/denoising_process/{time_str}/'
-        else:
-            save_dir = './NCSN/denoising_process/'
+        save_dir = './NCSN/denoising_process/'
         filename = '{:>03d}.png'.format(epochs)
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
