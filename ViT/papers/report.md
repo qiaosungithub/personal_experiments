@@ -27,6 +27,15 @@ ablations:
 
 # [How to start training: the effect of initialization and architecture](https://arxiv.org/abs/2106.11286)
 
-- 深入研究了各种网络结构的训练中, 梯度消失/爆炸问题和 initialization, architecture 的关系. 更加着重于梯度爆炸.
+首先定义两种现象:
 
-- 对于 fc / conv 层, 梯度爆炸主要和模型架构有关. 而对于 __residual structure__, 只要没有梯度消失, 就不会有梯度爆炸.
+__FM1__: 随着层数增加, 最后一层的输出大小指数增长/减小
+
+__FM2__: 随着层数增加, 最后一层的输出的方差指数增长/减小
+
+- 深入研究了各种网络结构的训练中, 两种现象和 initialization, architecture 的关系. 更加着重于后者.
+
+- 对于 fc / conv 层, FM1 主要和初始化, FM2 主要和模型架构有关. 而对于 __residual structure__, 只要没有 FM1, 就不会有 FM2.
+
+- 对于 resnet 的 FM1 现象, 考虑加入 __scale__ (x $\leftarrow$ x + scale * F(x)); scale=1 会发散, 一般把 scale 设成几何衰减 (发散与否和 scale 的求和有关).
+
