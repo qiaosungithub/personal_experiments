@@ -177,7 +177,6 @@ def make_dataset(model, sigmas, eps, T, n_samples=1000, save=True, save_dir='./N
             torchvision.utils.save_image(samples[j], os.path.join(save_dir, "{:>03d}.png".format(j)))
 
 def evaluate_denoising(score_model, sigmas, eps, T, val_loader, outdir):
-    # mkdir(outdir)
     mse = corruption_mse = 0
     n_batches = 0
     score_model.eval()
