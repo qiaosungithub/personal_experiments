@@ -181,9 +181,11 @@ def evaluate_denoising(score_model, sigmas, eps, T, val_loader, outdir):
     n_batches = 0
     score_model.eval()
 
-    pbar = tqdm(total=len(val_loader.dataset))
+    # pbar = tqdm(total=len(val_loader.dataset))
+    pbar = tqdm(total=2000)
     pbar.set_description('Eval')
     for data, _ in val_loader:
+        # here we only evaluate four batches (2000 images)
         n_batches += data.shape[0]
         data = data.cuda()
         broken_data, mask = corruption(data, type_='ebm')
@@ -202,6 +204,8 @@ def evaluate_denoising(score_model, sigmas, eps, T, val_loader, outdir):
         # plt.imshow(recovered_img[0].detach().cpu().numpy().reshape(28, 28), cmap='gray')
         # plt.show()
         # break
+        if n_batches >= 2000:
+            break
 
     pbar.close()
     return (corruption_mse / n_batches, mse / n_batches, data[:100].detach().cpu(), broken_data[:100].detach().cpu(), recovered_img[:100].detach().cpu())
