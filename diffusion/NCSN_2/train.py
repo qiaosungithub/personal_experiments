@@ -54,6 +54,11 @@ def save_image(images, filename):
     grid = torchvision.utils.make_grid(images, nrow=8, padding=2, pad_value=1)
     torchvision.utils.save_image(grid, filename)
 
+def should_eval(epoch, eval_freq):
+    if eval_freq == "square":
+        return is_square(epoch)
+    return (epoch+1) % eval_freq == 0
+
 def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas, eps, T, time_str, eval_freq=5):
     # Set random seed for reproducibility
     seed = 42
@@ -126,7 +131,7 @@ def train(epochs, model, optimizer, criterion, train_loader, val_loader, sigmas,
         model_path = get_model_path(time_str, epoch)
         torch.save(model.state_dict(), model_path)
 
-        if ((eval_freq == "square" and is_square(epoch)) or (epoch+1) % eval_freq == 0):
+        if should_eval(epoch, eval_freq):
             # generate samples
             model.eval()
             with torch.no_grad():
