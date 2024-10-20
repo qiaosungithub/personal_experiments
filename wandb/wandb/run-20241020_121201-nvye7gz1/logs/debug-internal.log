@@ -1,0 +1,17 @@
+{"time":"2024-10-20T12:12:01.7769172-04:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2024-10-20T12:12:01.777421-04:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\14695\\Desktop\\group\\personal_experiments\\wandb\\wandb\\run-20241020_121201-nvye7gz1\\logs\\debug-core.log"}
+{"time":"2024-10-20T12:12:02.1532368-04:00","level":"INFO","msg":"created new stream","id":"nvye7gz1"}
+{"time":"2024-10-20T12:12:02.1532368-04:00","level":"INFO","msg":"stream: started","id":"nvye7gz1"}
+{"time":"2024-10-20T12:12:02.1532368-04:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"nvye7gz1"}}
+{"time":"2024-10-20T12:12:02.1532368-04:00","level":"INFO","msg":"sender: started","stream_id":"nvye7gz1"}
+{"time":"2024-10-20T12:12:02.1532368-04:00","level":"INFO","msg":"handler: started","stream_id":{"value":"nvye7gz1"}}
+{"time":"2024-10-20T12:12:02.3579345-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-20T12:12:02.4227663-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-20T12:12:02.4227663-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-20T12:12:02.8948027-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-20T12:12:03.0030621-04:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2024-10-20T12:12:04.0171173-04:00","level":"INFO","msg":"stream: closing","id":"nvye7gz1"}
+{"time":"2024-10-20T12:12:04.0171173-04:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"nvye7gz1"}}
+{"time":"2024-10-20T12:12:04.0171173-04:00","level":"INFO","msg":"sender: closed","stream_id":"nvye7gz1"}
+{"time":"2024-10-20T12:12:04.0171173-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"nvye7gz1"}}
+{"time":"2024-10-20T12:12:04.0176208-04:00","level":"INFO","msg":"stream: closed","id":"nvye7gz1"}

@@ -1,0 +1,17 @@
+{"time":"2024-10-20T12:05:28.8166585-04:00","level":"INFO","msg":"using version","core version":"0.18.5"}
+{"time":"2024-10-20T12:05:28.8166585-04:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\14695\\Desktop\\group\\personal_experiments\\wandb\\wandb\\run-20241020_120528-dx46dkli\\logs\\debug-core.log"}
+{"time":"2024-10-20T12:05:29.2509107-04:00","level":"INFO","msg":"created new stream","id":"dx46dkli"}
+{"time":"2024-10-20T12:05:29.2509107-04:00","level":"INFO","msg":"stream: started","id":"dx46dkli"}
+{"time":"2024-10-20T12:05:29.2509107-04:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"dx46dkli"}}
+{"time":"2024-10-20T12:05:29.2520341-04:00","level":"INFO","msg":"sender: started","stream_id":"dx46dkli"}
+{"time":"2024-10-20T12:05:29.2523716-04:00","level":"INFO","msg":"handler: started","stream_id":{"value":"dx46dkli"}}
+{"time":"2024-10-20T12:05:29.4714401-04:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-10-20T12:05:29.5364641-04:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-10-20T12:05:29.5365964-04:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-10-20T12:05:30.295899-04:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-10-20T12:05:30.4164088-04:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2024-10-20T12:05:31.4365598-04:00","level":"INFO","msg":"stream: closing","id":"dx46dkli"}
+{"time":"2024-10-20T12:05:31.4376846-04:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"dx46dkli"}}
+{"time":"2024-10-20T12:05:31.4376846-04:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"dx46dkli"}}
+{"time":"2024-10-20T12:05:31.4376846-04:00","level":"INFO","msg":"sender: closed","stream_id":"dx46dkli"}
+{"time":"2024-10-20T12:05:31.4376846-04:00","level":"INFO","msg":"stream: closed","id":"dx46dkli"}
