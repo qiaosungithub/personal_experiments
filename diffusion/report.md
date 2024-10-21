@@ -33,16 +33,18 @@ $D$ 是数据维度; $\Phi$ 是高斯分布的 CDF; 应该选择比例 $\gamma$ 
 
 $$\Phi(\sqrt{2D}(\gamma - 1)+3\gamma)-\Phi(\sqrt{2D}(\gamma - 1)-3\gamma) = 0.5$$
 
-经过计算, MNIST 上选择 $\gamma = 0.9$ 比较合适. 也就是说 $L=75$.
+经过计算, MNIST 上选择 $\gamma = 10/9$ 比较合适. 也就是说 $L=75$.
 
-原论文中的 $\gamma = 0.6$. 差距很大！！
+原论文中的 $\gamma = 1.58$. 差距很大！！
 
 3. 重点简化: 在神经网络中, 不再传入 noise scale, 而是直接除以 noise scale. 数学上近似是对的, 更加容易学?
 
-4. 关于 langevin 中 $\epsilon$ 的选择 (原论文中说这个选取可以跨域1-2个数量级):
+4. 关于 langevin 中 $\epsilon$ 的选择 (原论文中说这个选取可以跨域1-2个数量级): 最小化
 
-$$(1-\frac{\epsilon}{\sigma_L^2})^{2T}(\gamma^2 - \frac{2\epsilon}{\sigma_L^2(1-\dfrac{\epsilon}{\sigma_L^2})^2})+\frac{2\epsilon}{\sigma_L^2(1-\dfrac{\epsilon}{\sigma_L^2})^2}=1$$
+$$(1-\frac{\epsilon}{\sigma_L^2})^{2T}\left(\gamma^2 - \frac{2\epsilon}{\sigma_L^2\left(1-\left(1-\dfrac{\epsilon}{\sigma_L^2}\right)^2\right)}\right)+\frac{2\epsilon}{\sigma_L^2\left(1-\left(1-\dfrac{\epsilon}{\sigma_L^2}\right)^2\right)}$$
 
 而 $T$ 可以比较大.
+
+在 MNIST 上, $\epsilon = 1e-5$ 是合适的.
 
 5. 在 eval 的时候使用 exponential moving average, 来减缓模型参数的过大变化.
